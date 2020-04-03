@@ -55,14 +55,14 @@ func TestGetCommonName(t *testing.T) {
 
 	cluster.Spec = v1beta1.KafkaClusterSpec{HeadlessServiceEnabled: true}
 	headlessCN := GetCommonName(cluster)
-	expected := "test-cluster-headless.test-namespace.svc.cluster.local"
+	expected := "test-cluster-headless.test-namespace.svc.cluster." + TopLevelDomain
 	if headlessCN != expected {
 		t.Error("Expected:", expected, "Got:", headlessCN)
 	}
 
 	cluster.Spec = v1beta1.KafkaClusterSpec{HeadlessServiceEnabled: false}
 	allBrokerCN := GetCommonName(cluster)
-	expected = "test-cluster-all-broker.test-namespace.svc.cluster.local"
+	expected = "test-cluster-all-broker.test-namespace.svc.cluster." + TopLevelDomain
 	if allBrokerCN != expected {
 		t.Error("Expected:", expected, "Got:", allBrokerCN)
 	}
@@ -85,8 +85,8 @@ func TestGetInternalDNSNames(t *testing.T) {
 	cluster.Spec.HeadlessServiceEnabled = true
 	headlessNames := GetInternalDNSNames(cluster)
 	expected := []string{
-		"*.test-cluster-headless.test-namespace.svc.cluster.local",
-		"test-cluster-headless.test-namespace.svc.cluster.local",
+		"*.test-cluster-headless.test-namespace.svc.cluster." + TopLevelDomain,
+		"test-cluster-headless.test-namespace.svc.cluster." + TopLevelDomain,
 		"*.test-cluster-headless.test-namespace.svc",
 		"test-cluster-headless.test-namespace.svc",
 		"*.test-cluster-headless.test-namespace",
@@ -100,8 +100,8 @@ func TestGetInternalDNSNames(t *testing.T) {
 	cluster.Spec.HeadlessServiceEnabled = false
 	allBrokerNames := GetInternalDNSNames(cluster)
 	expected = []string{
-		"*.test-cluster-all-broker.test-namespace.svc.cluster.local",
-		"test-cluster-all-broker.test-namespace.svc.cluster.local",
+		"*.test-cluster-all-broker.test-namespace.svc.cluster." + TopLevelDomain,
+		"test-cluster-all-broker.test-namespace.svc.cluster." + TopLevelDomain,
 		"*.test-cluster-all-broker.test-namespace.svc",
 		"test-cluster-all-broker.test-namespace.svc",
 		"*.test-cluster-all-broker.test-namespace",

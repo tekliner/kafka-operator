@@ -34,6 +34,11 @@ import (
 	"os"
 	"strings"
 
+	"github.com/banzaicloud/kafka-operator/pkg/kafkaclient"
+	"github.com/banzaicloud/kafka-operator/pkg/resources/envoy"
+	"github.com/banzaicloud/kafka-operator/pkg/resources/kafka"
+	"github.com/banzaicloud/kafka-operator/pkg/scale"
+	"github.com/banzaicloud/kafka-operator/pkg/util/pki"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 
 	istioclientv1alpha3 "github.com/banzaicloud/istio-client-go/pkg/networking/v1alpha3"
@@ -77,6 +82,7 @@ func main() {
 	var webhookCertDir string
 	var webhookDisabled bool
 	var verboseLogging bool
+	var topLevelDomain string
 
 	flag.StringVar(&namespaces, "namespaces", "", "Comma separated list of namespaces where operator listens for resources")
 	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")
@@ -85,7 +91,16 @@ func main() {
 	flag.BoolVar(&webhookDisabled, "disable-webhooks", false, "Disable webhooks used to validate custom resources")
 	flag.StringVar(&webhookCertDir, "tls-cert-dir", "/etc/webhook/certs", "The directory with a tls.key and tls.crt for serving HTTPS requests")
 	flag.BoolVar(&verboseLogging, "verbose", false, "Enable verbose logging")
+	flag.StringVar(&topLevelDomain, "top-domain", "local", "Set top level domain")
+
 	flag.Parse()
+
+	pki.TopLevelDomain = topLevelDomain
+	envoy.TopLevelDomain = topLevelDomain
+	scale.TopLevelDomain = topLevelDomain
+	pki.TopLevelDomain = topLevelDomain
+	kafkaclient.TopLevelDomain = topLevelDomain
+	kafka.TopLevelDomain = topLevelDomain
 
 	ctrl.SetLogger(zap.Logger(verboseLogging))
 

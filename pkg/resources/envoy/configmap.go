@@ -34,6 +34,10 @@ import (
 	corev1 "k8s.io/api/core/v1"
 )
 
+var (
+	TopLevelDomain string
+)
+
 func (r *Reconciler) configMap(log logr.Logger) runtime.Object {
 	configMap := &corev1.ConfigMap{
 		ObjectMeta: templates.ObjectMeta(envoyVolumeAndConfigName, labelSelector, r.KafkaCluster),
@@ -102,7 +106,7 @@ func generateEnvoyConfig(kc *v1beta1.KafkaCluster, log logr.Logger) string {
 				{
 					Address: &core.Address_SocketAddress{
 						SocketAddress: &core.SocketAddress{
-							Address: fmt.Sprintf("%s-%d.%s-headless.%s.svc.cluster.local", kc.Name, broker.Id, kc.Name, kc.Namespace),
+							Address: fmt.Sprintf("%s-%d.%s-headless.%s.svc.cluster."+TopLevelDomain, kc.Name, broker.Id, kc.Name, kc.Namespace),
 							PortSpecifier: &core.SocketAddress_PortValue{
 								PortValue: uint32(kc.Spec.ListenersConfig.ExternalListeners[0].ContainerPort),
 							},

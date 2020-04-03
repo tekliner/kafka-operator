@@ -40,9 +40,11 @@ require (
 	go.etcd.io/bbolt v1.3.3 // indirect
 	go.opencensus.io v0.22.0 // indirect
 	google.golang.org/api v0.7.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20190709130402-674ba3eaed22 // indirect
 	k8s.io/api v0.0.0-20190918155943-95b840bb6a1f
 	k8s.io/apimachinery v0.0.0-20190913080033-27d36303b655
 	k8s.io/client-go v11.0.1-0.20190516230509-ae8359b20417+incompatible
+	k8s.io/klog v1.0.0 // indirect
 	sigs.k8s.io/controller-runtime v0.2.0
 )
 

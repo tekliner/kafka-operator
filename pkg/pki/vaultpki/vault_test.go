@@ -37,7 +37,10 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 )
 
-var log = logf.Log.WithName("testing")
+var (
+	log            = logf.Log.WithName("testing")
+	ToplevelDomain string
+)
 
 func newMockCluster() *v1beta1.KafkaCluster {
 	cluster := &v1beta1.KafkaCluster{}
@@ -120,7 +123,7 @@ func createTestVault(t *testing.T) (net.Listener, *api.Client) {
 	client.Logical().Write(
 		"pki_kafka/root/generate/internal",
 		map[string]interface{}{
-			vaultCommonNameArg: "kafkaca.kafka.svc.cluster.local",
+			vaultCommonNameArg: "kafkaca.kafka.svc.cluster." + ToplevelDomain,
 			vaultTTLArg:        "215000h",
 		},
 	)

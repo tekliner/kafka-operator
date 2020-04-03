@@ -28,7 +28,11 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-const (
+var (
+	TopLevelDomain string
+)
+
+var (
 	// BrokerSelfSignerTemplate is the template used for self-signer resources
 	BrokerSelfSignerTemplate = "%s-self-signer"
 	// BrokerCACertTemplate is the template used for CA certificate resources
@@ -41,11 +45,11 @@ const (
 	BrokerControllerTemplate = "%s-controller"
 	// BrokerControllerFQDNTemplate is combined with the above and cluster namespace
 	// to create a 'fake' full-name for the controller user
-	BrokerControllerFQDNTemplate = "%s.%s.mgt.cluster.local"
+	BrokerControllerFQDNTemplate = "%s.%s.mgt.cluster." + TopLevelDomain
 	// CAIntermediateTemplate is the template used for intermediate CA resources
-	CAIntermediateTemplate = "%s-intermediate.%s.cluster.local"
+	CAIntermediateTemplate = "%s-intermediate.%s.cluster." + TopLevelDomain
 	// CAFQDNTemplate is the template used for the FQDN of a CA
-	CAFQDNTemplate = "%s-ca.%s.cluster.local"
+	CAFQDNTemplate = "%s-ca.%s.cluster." + TopLevelDomain
 )
 
 // Manager is the main interface for objects performing PKI operations
@@ -100,9 +104,9 @@ func GetInternalDNSNames(cluster *v1beta1.KafkaCluster) (dnsNames []string) {
 // GetCommonName returns the full FQDN for the internal Kafka listener
 func GetCommonName(cluster *v1beta1.KafkaCluster) string {
 	if cluster.Spec.HeadlessServiceEnabled {
-		return fmt.Sprintf("%s.%s.svc.cluster.local", fmt.Sprintf(kafka.HeadlessServiceTemplate, cluster.Name), cluster.Namespace)
+		return fmt.Sprintf("%s.%s.svc.cluster."+TopLevelDomain, fmt.Sprintf(kafka.HeadlessServiceTemplate, cluster.Name), cluster.Namespace)
 	}
-	return fmt.Sprintf("%s.%s.svc.cluster.local", fmt.Sprintf(kafka.AllBrokerServiceTemplate, cluster.Name), cluster.Namespace)
+	return fmt.Sprintf("%s.%s.svc.cluster."+TopLevelDomain, fmt.Sprintf(kafka.AllBrokerServiceTemplate, cluster.Name), cluster.Namespace)
 }
 
 // clusterDNSNames returns all the possible DNS Names for a Kafka Cluster

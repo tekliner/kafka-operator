@@ -24,6 +24,10 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+var (
+	TopLevelDomain string
+)
+
 const kafkaDefaultTimeout = int64(5)
 
 // KafkaConfig are the options to creating a new ClusterAdmin client
@@ -66,13 +70,13 @@ func determineInternalListenerForInnerCom(internalListeners []v1beta1.InternalLi
 
 func generateKafkaAddress(cluster *v1beta1.KafkaCluster) string {
 	if cluster.Spec.HeadlessServiceEnabled {
-		return fmt.Sprintf("%s.%s.svc.cluster.local:%d",
+		return fmt.Sprintf("%s.%s.svc.cluster."+TopLevelDomain+":%d",
 			fmt.Sprintf(kafka.HeadlessServiceTemplate, cluster.Name),
 			cluster.Namespace,
 			cluster.Spec.ListenersConfig.InternalListeners[determineInternalListenerForInnerCom(cluster.Spec.ListenersConfig.InternalListeners)].ContainerPort,
 		)
 	}
-	return fmt.Sprintf("%s.%s.svc.cluster.local:%d",
+	return fmt.Sprintf("%s.%s.svc.cluster."+TopLevelDomain+":%d",
 		fmt.Sprintf(kafka.AllBrokerServiceTemplate, cluster.Name),
 		cluster.Namespace,
 		cluster.Spec.ListenersConfig.InternalListeners[determineInternalListenerForInnerCom(cluster.Spec.ListenersConfig.InternalListeners)].ContainerPort,

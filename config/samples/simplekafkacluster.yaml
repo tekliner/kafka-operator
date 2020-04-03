@@ -7,10 +7,10 @@ metadata:
 spec:
   headlessServiceEnabled: true
   zkAddresses:
-    - "zookeeper-client.zookeeper:2181"
+    - "zk-client.default:2181"
   propagateLabels: false
   oneBrokerPerNode: false
-  clusterImage: "banzaicloud/kafka:2.13-2.4.0"
+  clusterImage: "716309063777.dkr.ecr.us-east-1.amazonaws.com/kafka-operator:IN-561-1"
   readOnlyConfig: |
     auto.create.topics.enable=false
   brokerConfigGroups:
@@ -22,7 +22,7 @@ spec:
               - ReadWriteOnce
             resources:
               requests:
-                storage: 10Gi
+                storage: 20Gi
   brokers:
     - id: 0
       brokerConfigGroup: "default"

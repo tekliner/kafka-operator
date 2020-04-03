@@ -33,6 +33,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
+var TopLevelDomain string
+
 var kafkaConfigTemplate = `
 {{ .ListenerConfig }}
 {{ if .ControlPlaneListener }}
@@ -129,10 +131,10 @@ func generateAdvertisedListenerConfig(id int32, l v1beta1.ListenersConfig, loadB
 	for _, iListener := range l.InternalListeners {
 		if headlessServiceEnabled {
 			advertisedListenerConfig = append(advertisedListenerConfig,
-				fmt.Sprintf("%s://%s-%d.%s-headless.%s.svc.cluster.local:%d", strings.ToUpper(iListener.Name), crName, id, crName, namespace, iListener.ContainerPort))
+				fmt.Sprintf("%s://%s-%d.%s-headless.%s.svc.cluster."+TopLevelDomain+":%d", strings.ToUpper(iListener.Name), crName, id, crName, namespace, iListener.ContainerPort))
 		} else {
 			advertisedListenerConfig = append(advertisedListenerConfig,
-				fmt.Sprintf("%s://%s-%d.%s.svc.cluster.local:%d", strings.ToUpper(iListener.Name), crName, id, namespace, iListener.ContainerPort))
+				fmt.Sprintf("%s://%s-%d.%s.svc.cluster."+TopLevelDomain+":%d", strings.ToUpper(iListener.Name), crName, id, namespace, iListener.ContainerPort))
 		}
 	}
 	return fmt.Sprintf("advertised.listeners=%s\n", strings.Join(advertisedListenerConfig, ","))
@@ -195,9 +197,9 @@ func getInternalListener(iListeners []v1beta1.InternalListenerConfig, id int32, 
 	for _, iListener := range iListeners {
 		if iListener.UsedForInnerBrokerCommunication {
 			if headlessServiceEnabled {
-				internalListener = fmt.Sprintf("%s://%s-%d.%s-headless.%s.svc.cluster.local:%d", strings.ToUpper(iListener.Name), crName, id, crName, namespace, iListener.ContainerPort)
+				internalListener = fmt.Sprintf("%s://%s-%d.%s-headless.%s.svc.cluster."+TopLevelDomain+":%d", strings.ToUpper(iListener.Name), crName, id, crName, namespace, iListener.ContainerPort)
 			} else {
-				internalListener = fmt.Sprintf("%s://%s-%d.%s.svc.cluster.local:%d", strings.ToUpper(iListener.Name), crName, id, namespace, iListener.ContainerPort)
+				internalListener = fmt.Sprintf("%s://%s-%d.%s.svc.cluster."+TopLevelDomain+":%d", strings.ToUpper(iListener.Name), crName, id, namespace, iListener.ContainerPort)
 			}
 		}
 	}

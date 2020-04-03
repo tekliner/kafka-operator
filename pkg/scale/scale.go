@@ -42,9 +42,11 @@ const (
 	brokerAlive             = "ALIVE"
 )
 
-var errCruiseControlNotReturned200 = errors.New("non 200 response from cruise-control")
-
-var log = logf.Log.WithName("cruise-control-methods")
+var (
+	errCruiseControlNotReturned200 = errors.New("non 200 response from cruise-control")
+	log                            = logf.Log.WithName("cruise-control-methods")
+	TopLevelDomain                 string
+)
 
 func generateUrlForCC(action, namespace string, options map[string]string, ccEndpoint, clusterName string) string {
 	optionURL := ""
@@ -54,7 +56,7 @@ func generateUrlForCC(action, namespace string, options map[string]string, ccEnd
 	if ccEndpoint != "" {
 		return "http://" + ccEndpoint + "/" + basePath + "/" + action + "?" + strings.TrimSuffix(optionURL, "&")
 	}
-	return "http://" + fmt.Sprintf(serviceNameTemplate, clusterName) + "." + namespace + ".svc.cluster.local:8090/" + basePath + "/" + action + "?" + strings.TrimSuffix(optionURL, "&")
+	return "http://" + fmt.Sprintf(serviceNameTemplate, clusterName) + "." + namespace + ".svc.cluster." + TopLevelDomain + ":8090/" + basePath + "/" + action + "?" + strings.TrimSuffix(optionURL, "&")
 	//TODO only for testing
 	//return "http://localhost:8090/" + basePath + "/" + action + "?" + strings.TrimSuffix(optionURL, "&")
 }

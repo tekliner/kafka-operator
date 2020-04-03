@@ -44,15 +44,15 @@ func TestGenerateBrokerConfig(t *testing.T) {
 			clusterWideConfig:       ``,
 			perBrokerConfig:         ``,
 			perBrokerReadOnlyConfig: ``,
-			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 broker.id=0
-cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 inter.broker.listener.name=INTERNAL
 listener.security.protocol.map=INTERNAL:PLAINTEXT
 listeners=INTERNAL://:9092
 metric.reporters=com.linkedin.kafka.cruisecontrol.metricsreporter.CruiseControlMetricsReporter
 super.users=
-zookeeper.connect=example.zk:2181/`,
+zookeeper.connect=example.zk:2181/` + TopLevelDomain,
 		},
 		{
 			testName:                "basicConfigWithZKPath",
@@ -62,9 +62,9 @@ zookeeper.connect=example.zk:2181/`,
 			clusterWideConfig:       ``,
 			perBrokerConfig:         ``,
 			perBrokerReadOnlyConfig: ``,
-			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 broker.id=0
-cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 inter.broker.listener.name=INTERNAL
 listener.security.protocol.map=INTERNAL:PLAINTEXT
 listeners=INTERNAL://:9092
@@ -80,9 +80,9 @@ zookeeper.connect=example.zk:2181/kafka`,
 			clusterWideConfig:       ``,
 			perBrokerConfig:         ``,
 			perBrokerReadOnlyConfig: ``,
-			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 broker.id=0
-cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 inter.broker.listener.name=INTERNAL
 listener.security.protocol.map=INTERNAL:PLAINTEXT
 listeners=INTERNAL://:9092
@@ -98,9 +98,9 @@ zookeeper.connect=example.zk:2181/`,
 			clusterWideConfig:       ``,
 			perBrokerConfig:         ``,
 			perBrokerReadOnlyConfig: ``,
-			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 broker.id=0
-cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 inter.broker.listener.name=INTERNAL
 listener.security.protocol.map=INTERNAL:PLAINTEXT
 listeners=INTERNAL://:9092
@@ -121,9 +121,9 @@ zookeeper.connect=example.zk:2181,example.zk-1:2181/kafka`,
 					MountPath: "/kafka-logs",
 				},
 			},
-			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 broker.id=0
-cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 inter.broker.listener.name=INTERNAL
 listener.security.protocol.map=INTERNAL:PLAINTEXT
 listeners=INTERNAL://:9092
@@ -148,11 +148,11 @@ compression.type=snappy
 			perBrokerReadOnlyConfig: `
 auto.create.topics.enable=true
 `,
-			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+			expectedConfig: `advertised.listeners=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 auto.create.topics.enable=true
 broker.id=0
 control.plane.listener.name=thisisatest
-cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.local:9092
+cruise.control.metrics.reporter.bootstrap.servers=INTERNAL://kafka-0.kafka.svc.cluster.` + TopLevelDomain + `:9092
 inter.broker.listener.name=INTERNAL
 listener.security.protocol.map=INTERNAL:PLAINTEXT
 listeners=INTERNAL://:9092

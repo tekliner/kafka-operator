@@ -45,14 +45,14 @@ func TestGenerateKafkaAddress(t *testing.T) {
 	cluster := newMockCluster()
 	cluster.Spec.HeadlessServiceEnabled = true
 	generatedHeadless := generateKafkaAddress(cluster)
-	expected := "test-headless.test.svc.cluster.local:80"
+	expected := "test-headless.test.svc.cluster." + TopLevelDomain + ":80"
 	if generatedHeadless != expected {
 		t.Error("Expected kafka address:", expected, "Got:", generatedHeadless)
 	}
 
 	cluster.Spec.HeadlessServiceEnabled = false
 	generatedAllBroker := generateKafkaAddress(cluster)
-	expected = "test-all-broker.test.svc.cluster.local:80"
+	expected = "test-all-broker.test.svc.cluster." + TopLevelDomain + ":80"
 	if generatedAllBroker != expected {
 		t.Error("Expected kafka address:", expected, "Got:", generatedAllBroker)
 	}

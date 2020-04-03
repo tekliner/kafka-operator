@@ -17,6 +17,7 @@ package main
 import (
 	"crypto/tls"
 	"crypto/x509"
+	"flag"
 	"io/ioutil"
 	"log"
 	"os"
@@ -27,19 +28,24 @@ import (
 	"github.com/Shopify/sarama"
 )
 
-const kafkaTopic = "test-topic"
+const (
+	kafkaTopic = "test-topic"
+	certFile   = "/etc/secrets/certs/tls.crt"
+	keyFile    = "/etc/secrets/certs/tls.key"
+	caFile     = "/etc/secrets/certs/ca.crt"
+	certEnvVar = "KAFKA_TLS_CERT"
+	keyEnvVar  = "KAFKA_TLS_KEY"
+	caEnvVar   = "KAFKA_TLS_CA"
+)
 
-const certFile = "/etc/secrets/certs/tls.crt"
-const keyFile = "/etc/secrets/certs/tls.key"
-const caFile = "/etc/secrets/certs/ca.crt"
-
-const certEnvVar = "KAFKA_TLS_CERT"
-const keyEnvVar = "KAFKA_TLS_KEY"
-const caEnvVar = "KAFKA_TLS_CA"
-
-var brokerAddrs = []string{"kafka-headless.kafka.svc.cluster.local:29092"}
+var (
+	topLevelDomain string
+	brokerAddrs    = []string{"kafka-headless.kafka.svc.cluster." + topLevelDomain + ":29092"}
+)
 
 func main() {
+	flag.StringVar(&topLevelDomain, "top-domain", "local", "Set top level domain")
+	flag.Parse()
 
 	// Create an SSL configuration for connecting to Kafka
 	config := sarama.NewConfig()
