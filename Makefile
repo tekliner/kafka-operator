@@ -1,6 +1,6 @@
 # Image URL to use all building/pushing image targets
-TAG ?= $(shell git describe --tags --abbrev=0 --match '[0-9].*[0-9].*[0-9]' 2>/dev/null )
-IMG ?= banzaicloud/kafka-operator:$(TAG)
+TAG ?= IN-561-3
+IMG ?= 716309063777.dkr.ecr.us-east-1.amazonaws.com/kafka-operator:$(TAG)
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS ?= "crd:trivialVersions=true"

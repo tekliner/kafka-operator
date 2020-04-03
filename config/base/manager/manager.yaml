@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: controller-manager
-  namespace: system
+  namespace: default
   labels:
     control-plane: controller-manager
 spec:
@@ -20,7 +20,8 @@ spec:
         - /manager
         args:
         - --enable-leader-election
-        image: banzaicloud/kafka-operator:latest
+        - --top-domain=imp  
+        image: 716309063777.dkr.ecr.us-east-1.amazonaws.com/kafka-operator:IN-561-3
         name: manager
         ports:
         - containerPort: 9001
