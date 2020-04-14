@@ -76,13 +76,15 @@ func init() {
 }
 
 func main() {
-	var namespaces string
-	var metricsAddr string
-	var enableLeaderElection bool
-	var webhookCertDir string
-	var webhookDisabled bool
-	var verboseLogging bool
-	var topLevelDomain string
+	var (
+		namespaces string
+		metricsAddr string
+		enableLeaderElection bool
+		webhookCertDir string
+		webhookDisabled bool
+		verboseLogging bool
+		topLevelDomain string
+	)
 
 	flag.StringVar(&namespaces, "namespaces", "", "Comma separated list of namespaces where operator listens for resources")
 	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")

@@ -1,7 +1,7 @@
 {{- if and (.Values.webhook.enabled) (.Values.webhook.certs.generate) -}}
 
 {{- $commonName := printf "%s-operator.%s.svc" (include "kafka-operator.fullname" .) .Release.Namespace -}}
-{{- $altNames := list ( $commonName ) ( printf "%s.cluster.local" $commonName ) -}}
+{{- $altNames := list ( $commonName ) ( printf "%s.cluster.imp" $commonName ) -}}
 {{- $ca := genCA "kafka-operator-ca" 365 -}}
 {{- $cert := genSignedCert $commonName nil $altNames 365 $ca -}}
 apiVersion: admissionregistration.k8s.io/v1beta1
