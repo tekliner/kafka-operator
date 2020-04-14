@@ -18,7 +18,7 @@ spec:
   commonName: $(SERVICE_NAME).$(SERVICE_NAMESPACE).svc
   dnsNames:
   - $(SERVICE_NAME).$(SERVICE_NAMESPACE).svc
-  - $(SERVICE_NAME).$(SERVICE_NAMESPACE).svc.cluster.local
+  - $(SERVICE_NAME).$(SERVICE_NAMESPACE).svc.cluster.imp
   issuerRef:
     kind: Issuer
     name: selfsigned-issuer
