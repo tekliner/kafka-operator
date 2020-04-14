@@ -1,5 +1,5 @@
 # Image URL to use all building/pushing image targets
-TAG ?= IN-561-8
+TAG ?= IN-561-9
 IMG ?= 716309063777.dkr.ecr.us-east-1.amazonaws.com/kafka-operator:$(TAG)
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)

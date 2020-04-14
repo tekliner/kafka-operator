@@ -40,7 +40,7 @@ const (
 
 var (
 	topLevelDomain string
-	brokerAddrs    = []string{"kafka-headless.kafka.svc.cluster." + topLevelDomain + ":29092"}
+	brokerAddrs    = []string{"kafka-default.kafka.svc.cluster." + topLevelDomain + ":29092"}
 )
 
 func main() {

@@ -10,7 +10,7 @@ spec:
     - "zk-client.default:2181"
   propagateLabels: false
   oneBrokerPerNode: false
-  clusterImage: "banzaicloud/kafka:2.13-2.4.0"
+  clusterImage: "banzaicloud/kafka:2.13-2.4.1"
   readOnlyConfig: |
     auto.create.topics.enable=false
   brokerConfigGroups:

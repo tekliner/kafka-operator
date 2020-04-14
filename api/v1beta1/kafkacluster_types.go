@@ -522,7 +522,7 @@ func (mConfig *MonitoringConfig) GetKafkaJMXExporterConfig() string {
 	// Use upstream defined rules https://github.com/prometheus/jmx_exporter/blob/master/example_configs/kafka-2_0_0.yml
 	return `
     lowercaseOutputName: true
-	rules:
+    rules:
 	# Special cases and very specific rules
 	- pattern : kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
 	  name: kafka_server_$1_$2
