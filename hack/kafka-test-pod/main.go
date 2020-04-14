@@ -44,7 +44,7 @@ var (
 )
 
 func main() {
-	flag.StringVar(&topLevelDomain, "top-domain", "local", "Set top level domain")
+	flag.StringVar(&topLevelDomain, "top-domain", "imp", "Set top level domain")
 	flag.Parse()
 
 	// Create an SSL configuration for connecting to Kafka

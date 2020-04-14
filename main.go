@@ -77,13 +77,13 @@ func init() {
 
 func main() {
 	var (
-		namespaces string
-		metricsAddr string
+		namespaces           string
+		metricsAddr          string
 		enableLeaderElection bool
-		webhookCertDir string
-		webhookDisabled bool
-		verboseLogging bool
-		topLevelDomain string
+		webhookCertDir       string
+		webhookDisabled      bool
+		verboseLogging       bool
+		topLevelDomain       string
 	)
 
 	flag.StringVar(&namespaces, "namespaces", "", "Comma separated list of namespaces where operator listens for resources")
