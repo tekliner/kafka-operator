@@ -38,7 +38,7 @@ init-pki() {
   vault secrets tune -max-lease-ttl=8760h pki_kafka
   # Generate a CA certificate
   vault write pki_kafka/root/generate/internal \
-    common_name=kafkaca.kafka.svc.cluster.local \
+    common_name=kafkaca.kafka.svc.cluster.imp \
     ttl=8760h
   # Write distribution points
   vault write pki_kafka/config/urls \

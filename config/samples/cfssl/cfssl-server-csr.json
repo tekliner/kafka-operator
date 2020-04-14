@@ -1,5 +1,5 @@
 {
-    "CN": "kafka-headless.kafka.svc.cluster.local",
+    "CN": "kafka-headless.default.svc.cluster.imp",
     "key": {
         "algo": "rsa",
         "size": 2048
@@ -10,5 +10,5 @@
             "O": "kafka"
         }
     ],
-    "Hosts": ["*.kafka-headless.kafka.svc.cluster.local", "*.kafka-headless", "kafka-headless.kafka"]
+    "Hosts": ["*.kafka-headless.default.svc.cluster.imp", "*.kafka-headless", "kafka-headless.default"]
 }

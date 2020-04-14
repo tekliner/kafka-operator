@@ -1,5 +1,5 @@
 {
-    "CN": "kafka-headless.kafka.svc.cluster.local",
+    "CN": "kafka-headless.default.svc.cluster.imp",
     "key": {
         "algo": "rsa",
         "size": 2048
