@@ -203,7 +203,7 @@ func getInternalListener(iListeners []v1beta1.InternalListenerConfig, id int32, 
 			}
 		}
 	}
-
+	fmt.Println("test domain!", TopLevelDomain)
 	return internalListener
 }
 

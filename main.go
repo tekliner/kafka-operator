@@ -93,7 +93,7 @@ func main() {
 	flag.BoolVar(&webhookDisabled, "disable-webhooks", false, "Disable webhooks used to validate custom resources")
 	flag.StringVar(&webhookCertDir, "tls-cert-dir", "/etc/webhook/certs", "The directory with a tls.key and tls.crt for serving HTTPS requests")
 	flag.BoolVar(&verboseLogging, "verbose", false, "Enable verbose logging")
-	flag.StringVar(&topLevelDomain, "top-domain", "imp", "Set top level domain")
+	flag.StringVar(&topLevelDomain, "top-domain", "local", "Set top level domain")
 
 	flag.Parse()
 
